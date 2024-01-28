@@ -83,6 +83,13 @@
 			function init() {
 
 				audio = document.createElement( 'audio' );
+
+				if ( audio.canPlayType( 'audio/ogg' ) === '' ) {
+
+					alert( 'Unfortunately this browser is unable to play the audio (ogg)' );
+
+				}
+
 				audio.src = 'datassette - Offal (1999-2014) - 87 Dataworld (2004).ogg';
 
 				beat = new Beat( audio );
