@@ -221,6 +221,17 @@
 				renderer.setClearColor( 0x000030 );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.domElement.addEventListener( 'dblclick', function ( event ) {
+
+					var element = document.body;
+
+					if ( element.requestFullscreen ) {
+
+						element.requestFullscreen( { navigationUI: 'hide' } );
+
+					}
+
+				} );
 				demoDiv.appendChild( renderer.domElement );
 
 				//
@@ -230,7 +241,7 @@
 
 			}
 
-			function start() {
+			async function start() {
 
 				infoDiv.style.display = 'none';
 				demoDiv.style.display = '';
@@ -239,6 +250,17 @@
 				camera.rotation.set( 0, 0, 0 );
 
 				audio.play();
+
+				if ( 'wakeLock' in navigator ) {
+
+					try {
+
+						await navigator.wakeLock.request( 'screen' );
+
+					} catch ( err ) {}
+
+				}
+
 				animate( performance.now() );
 
 			}
